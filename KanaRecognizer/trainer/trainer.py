@@ -89,7 +89,7 @@ if __name__ == '__main__':
               batch_size=16,
               verbose=2)
 
-    save_model_weights('KanaRecognizer/trainer/weights/M16-hiragana_weights.h5', model)
+    save_model_weights('KanaRecognizer/trainer/weights/M7_1-hiragana_weights.h5', model)
 
     score, acc = model.evaluate(X_test, y_test,
                                 batch_size=16,
