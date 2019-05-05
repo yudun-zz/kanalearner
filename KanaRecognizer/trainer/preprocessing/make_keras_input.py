@@ -107,28 +107,28 @@ def get_data(writers_per_char=160, mode='all', get_scripts=False, test_size=0.2)
 
 
 if __name__ == '__main__':
-    # X_train, Y_train, X_test, Y_test, unique_labels = \
-    #     get_data(writers_per_char=160, mode='hiragana', get_scripts=False, test_size=0.2)
-    # pickle.dump(X_train, open(DATA_PATH + '/hiragana_x_train.p', 'wb'))
-    # pickle.dump(Y_train, open(DATA_PATH + '/hiragana_y_train.p', 'wb'))
-    # pickle.dump(X_test, open(DATA_PATH + '/hiragana_x_test.p', 'wb'))
-    # pickle.dump(Y_test, open(DATA_PATH + '/hiragana_y_test.p', 'wb'))
-    # print(unique_labels)
-
-    # X_train, Y_train, X_test, Y_test, unique_labels = \
-    #     get_data(writers_per_char=160, mode='katakana', get_scripts=False, test_size=0.2)
-    # pickle.dump(X_train, open(PROCESSED_DATA_PATH + '/katakana_x_train.p', 'wb'))
-    # pickle.dump(Y_train, open(PROCESSED_DATA_PATH + '/katakana_y_train.p', 'wb'))
-    # pickle.dump(X_test, open(PROCESSED_DATA_PATH + '/katakana_x_test.p', 'wb'))
-    # pickle.dump(Y_test, open(PROCESSED_DATA_PATH + '/katakana_y_test.p', 'wb'))
-    # print(unique_labels)
+    X_train, Y_train, X_test, Y_test, unique_labels = \
+        get_data(writers_per_char=160, mode='hiragana', get_scripts=False, test_size=0.2)
+    pickle.dump(X_train, open(PROCESSED_DATA_PATH + '/hiragana_x_train.p', 'wb'))
+    pickle.dump(Y_train, open(PROCESSED_DATA_PATH + '/hiragana_y_train.p', 'wb'))
+    pickle.dump(X_test, open(PROCESSED_DATA_PATH + '/hiragana_x_test.p', 'wb'))
+    pickle.dump(Y_test, open(PROCESSED_DATA_PATH + '/hiragana_y_test.p', 'wb'))
+    print(unique_labels)
 
     X_train, Y_train, X_test, Y_test, unique_labels = \
-        get_data(writers_per_char=160, mode='kana', get_scripts=False, test_size=0.2)
-    pickle.dump(X_train, open(PROCESSED_DATA_PATH + '/x_train.p', 'wb'))
-    pickle.dump(Y_train, open(PROCESSED_DATA_PATH + '/y_train.p', 'wb'))
-    pickle.dump(X_test, open(PROCESSED_DATA_PATH + '/x_test.p', 'wb'))
-    pickle.dump(Y_test, open(PROCESSED_DATA_PATH + '/y_test.p', 'wb'))
-    pickle.dump(unique_labels, open(PROCESSED_DATA_PATH + '/unique_labels.p', 'wb'))
-    for i in range(0, len(unique_labels)//10 + 1):
-        print(unique_labels[i*10: i*10 + 10])
+        get_data(writers_per_char=300, mode='katakana', get_scripts=False, test_size=0.2)
+    pickle.dump(X_train, open(PROCESSED_DATA_PATH + '/katakana_x_train.p', 'wb'))
+    pickle.dump(Y_train, open(PROCESSED_DATA_PATH + '/katakana_y_train.p', 'wb'))
+    pickle.dump(X_test, open(PROCESSED_DATA_PATH + '/katakana_x_test.p', 'wb'))
+    pickle.dump(Y_test, open(PROCESSED_DATA_PATH + '/katakana_y_test.p', 'wb'))
+    print(unique_labels)
+
+    # X_train, Y_train, X_test, Y_test, unique_labels = \
+    #     get_data(writers_per_char=160, mode='kana', get_scripts=False, test_size=0.2)
+    # pickle.dump(X_train, open(PROCESSED_DATA_PATH + '/x_train.p', 'wb'))
+    # pickle.dump(Y_train, open(PROCESSED_DATA_PATH + '/y_train.p', 'wb'))
+    # pickle.dump(X_test, open(PROCESSED_DATA_PATH + '/x_test.p', 'wb'))
+    # pickle.dump(Y_test, open(PROCESSED_DATA_PATH + '/y_test.p', 'wb'))
+    # pickle.dump(unique_labels, open(PROCESSED_DATA_PATH + '/unique_labels.p', 'wb'))
+    # for i in range(0, len(unique_labels)//10 + 1):
+    #     print(unique_labels[i*10: i*10 + 10])
