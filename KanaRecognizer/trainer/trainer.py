@@ -1,104 +1,11 @@
 """Example job for running a neural network."""
 
-import h5py
-import numpy as np
 import argparse
 import os
 import pickle
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.layers.convolutional import *
-from keras.layers.normalization import *
-from keras.optimizers import *
 from util.util import *
-
-
-def M6_3(weights_path=None, input_shape=(1, 64, 64), n_output=None):
-    model = Sequential()
-
-    model.add(Conv2D(64, (3, 3), input_shape=input_shape, data_format='channels_first'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-
-    model.add(Conv2D(128, (3, 3)))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Conv2D(256, (3, 3)))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Conv2D(512, (3, 3)))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Flatten())
-    model.add(Dense(4096))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(4096))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(Dropout(0.5))
-
-    model.add(Dense(n_output))
-    model.add(BatchNormalization())
-    model.add(Activation('softmax'))
-    if weights_path:
-        model.load_weights(weights_path)
-    return model
-
-
-def M7_2(weights_path=None, input_shape=(1, 64, 64), n_output=None):
-    model = Sequential()
-
-    model.add(Conv2D(64, (3, 3), input_shape=input_shape, data_format='channels_first'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-
-    model.add(Conv2D(128, (3, 3)))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Conv2D(192, (3, 3)))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Conv2D(256, (3, 3)))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
-
-    model.add(Flatten())
-    model.add(Dense(1024))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(1024))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(Dropout(0.5))
-
-    model.add(Dense(n_output))
-    model.add(BatchNormalization())
-    model.add(Activation('softmax'))
-    if weights_path:
-        model.load_weights(weights_path)
-    return model
+from keras.optimizers import *
+from KanaRecognizer.models import katakana_model, hiragana_model
 
 
 def load_model_weights(name, model):
@@ -134,12 +41,12 @@ if __name__ == '__main__':
 
     if mode == 'hiragana':
         weight_path = 'KanaRecognizer/trainer/weights/M7_2-hiragana_weights.h5'
-        model_func = M7_2
+        model_func = hiragana_model
     elif mode == 'katakana':
         weight_path = 'KanaRecognizer/trainer/weights/M6_3-katakana_weights.h5'
-        model_func = M6_3
+        model_func = katakana_model
     else:
-        exit(-1)
+        exit(1)
 
     X_train, y_train, X_test, y_test = load_data(mode=mode)
 
@@ -153,6 +60,7 @@ if __name__ == '__main__':
 
     model.fit(X_train, y_train,
               epochs=20,
+              validation_data=(X_test, y_test),
               batch_size=16,
               verbose=2)
 

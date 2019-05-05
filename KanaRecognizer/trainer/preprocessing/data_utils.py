@@ -3,6 +3,7 @@
 import struct
 import numpy as np
 from PIL import Image, ImageEnhance, ImageOps
+from util.util import RAW_HIRAGANA_TO_LABEL_KATAKANA_MAP, RAW_KATAKANA_TO_LABEL_KATAKANA_MAP
 
 # Specify the path to the ETL character database files
 ETL_PATH = 'KanaRecognizer/trainer/ETLC_data'
@@ -128,6 +129,8 @@ def get_ETL_data(dataset, categories, writers_per_char,
         name_base = ETL_PATH + '/ETL8B/ETL8B2C'
     elif database == 'ETL1C':
         name_base = ETL_PATH + '/ETL1/ETL1C_'
+    else:
+        exit(1)
 
     filename = name_base + str(dataset)
 
@@ -190,15 +193,16 @@ def get_ETL_data(dataset, categories, writers_per_char,
 
                 X.append(outData)
                 if database == 'ETL8B2':
-                    # JIS Kanji Code (JIS X 0208)
-                    Y.append(decode_JISX0208(r[1]))
+                    # Hiragana: JIS Kanji Code (JIS X 0208)
+                    Y.append(
+                        RAW_HIRAGANA_TO_LABEL_KATAKANA_MAP.get(decode_JISX0208(r[1]), decode_JISX0208(r[1])))
                     if id_category < 75:
                         scriptTypes.append(0)
                     else:
                         scriptTypes.append(2)
                 elif database == 'ETL1C':
-                    # JIS Katakana X0201
-                    Y.append(decode_JISX0201(r[3]))
+                    # Katakana: JIS Katakana X0201
+                    Y.append(RAW_KATAKANA_TO_LABEL_KATAKANA_MAP[decode_JISX0201(r[3])])
                     scriptTypes.append(1)
 
             if database == 'ETL8B2':

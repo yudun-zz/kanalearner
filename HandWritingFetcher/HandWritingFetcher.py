@@ -1,15 +1,17 @@
 import tkinter as tk
 from PIL import Image, ImageDraw
 from util.util import HANDWRITING_HIRAGANA_LABEL_LIST, HANDWRITING_KATAKANA_LABEL_LIST
+from KanaRecognizer.models import katakana_model, hiragana_model
 
 
 class HandWritingFetcher(object):
     WHITE = (255, 255, 255)
 
-    def __init__(self, width, height, img_output_path, resize=None):
+    def __init__(self, width, height, img_output_path, stroke, resize=None):
         self.width = width
         self.height = height
         self.output_path = img_output_path
+        self.stroke = stroke
         self.resize = resize
 
         self.mouse_state = "up"
@@ -50,7 +52,7 @@ class HandWritingFetcher(object):
         if self.mouse_state == "down":
             if self.xold is not None and self.yold is not None:
                 self.canvas.create_line(self.xold, self.yold, e.x, e.y, smooth=tk.TRUE)
-                self.draw.line([self.xold, self.yold, e.x, e.y], fill="black", width=10)
+                self.draw.line([self.xold, self.yold, e.x, e.y], fill="black", width=self.stroke)
             self.xold = e.x
             self.yold = e.y
 
@@ -77,9 +79,11 @@ class HandWritingFetcher(object):
 
 if __name__ == '__main__':
     for hiragana in HANDWRITING_HIRAGANA_LABEL_LIST[5:]:
-        handWritingFetcher = HandWritingFetcher(200, 200, 'hand_writing_data/' + hiragana + '.png', resize=(64, 64))
+        handWritingFetcher = HandWritingFetcher(200, 200,
+                                                'hand_writing_data/' + hiragana + '.png', stroke=6, resize=(64, 64))
         handWritingFetcher.fetch()
 
     for katakana in HANDWRITING_KATAKANA_LABEL_LIST[5:]:
-        handWritingFetcher = HandWritingFetcher(200, 200, 'hand_writing_data/' + katakana + '.png', resize=(64, 64))
+        handWritingFetcher = HandWritingFetcher(200, 200,
+                                                'hand_writing_data/' + katakana + '.png', stroke=10, resize=(64, 64))
         handWritingFetcher.fetch()
