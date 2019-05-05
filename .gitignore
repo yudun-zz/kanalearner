@@ -7,3 +7,4 @@ hand_writing_data
 venv
 *.pyc
 .DS_Store
+weights
