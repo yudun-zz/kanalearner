@@ -1,0 +1,9 @@
+ETLC_data
+.idea
+processed_data
+test_hiragana_img
+test_katakana_img
+hand_writing_data
+venv
+*.pyc
+.DS_Store
