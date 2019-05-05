@@ -3,9 +3,12 @@
 import argparse
 import os
 import pickle
-from util.util import *
-from keras.optimizers import *
-from KanaRecognizer.models import katakana_model, hiragana_model
+from util.util import PROCESSED_DATA_PATH, HIRAGANA, KATAKANA, get_model_path_from_model_name
+from keras.optimizers import Adam
+from KanaRecognizer.models import M7_2, M6_3
+
+HIRAGANA_MODEL = M7_2
+KATAKANA_MODEL = M6_3
 
 
 def load_model_weights(name, model):
@@ -39,17 +42,16 @@ if __name__ == '__main__':
     mode = args.mode
     continue_training = args.c
 
-    if mode == 'hiragana':
-        weight_path = 'KanaRecognizer/trainer/weights/M7_2-hiragana_weights.h5'
-        model_func = hiragana_model
-    elif mode == 'katakana':
-        weight_path = 'KanaRecognizer/trainer/weights/M6_3-katakana_weights.h5'
-        model_func = katakana_model
+    if mode == HIRAGANA:
+        model_func = HIRAGANA_MODEL
+    elif mode == KATAKANA:
+        model_func = KATAKANA_MODEL
     else:
-        exit(1)
+        raise Exception('Unrecognized mode', mode)
+
+    weight_path = get_model_path_from_model_name(mode=mode, model_name=model_func.__name__)
 
     X_train, y_train, X_test, y_test = load_data(mode=mode)
-
     n_output = y_train.shape[1]
 
     model = model_func(n_output=n_output, input_shape=(1, 64, 64),

@@ -5,7 +5,7 @@ from keras.layers.convolutional import *
 from keras.layers.normalization import *
 
 
-def katakana_model(weights_path=None, input_shape=(1, 64, 64), n_output=None):
+def M6_3(weights_path=None, input_shape=(1, 64, 64), n_output=None):
     model = Sequential()
 
     model.add(Conv2D(64, (3, 3), input_shape=input_shape, data_format='channels_first'))
@@ -49,7 +49,7 @@ def katakana_model(weights_path=None, input_shape=(1, 64, 64), n_output=None):
     return model
 
 
-def hiragana_model(weights_path=None, input_shape=(1, 64, 64), n_output=None):
+def M7_2(weights_path=None, input_shape=(1, 64, 64), n_output=None):
     model = Sequential()
 
     model.add(Conv2D(64, (3, 3), input_shape=input_shape, data_format='channels_first'))

@@ -1,7 +1,22 @@
 
+HIRAGANA = 'hiragana'
+KATAKANA = 'katakana'
+
 # Specify the path to the processed files
 PROCESSED_DATA_PATH = 'KanaRecognizer/trainer/processed_data'
 MANUAL_HANDWRITING_DATA_PATH = 'KanaRecognizer/hand_writing_data'
+HIRAGANA_MODEL_PATH_TEMP = 'KanaRecognizer/trainer/weights/{}-hiragana_weights.h5'
+KATAKANA_MODEL_PATH_TEMP = 'KanaRecognizer/trainer/weights/{}-katakana_weights.h5'
+
+
+def get_model_path_from_model_name(mode, model_name):
+    if mode == HIRAGANA:
+        return HIRAGANA_MODEL_PATH_TEMP.format(model_name)
+    elif mode == KATAKANA:
+        return KATAKANA_MODEL_PATH_TEMP.format(model_name)
+    else:
+        raise Exception('Unrecognized mode', mode)
+
 
 HANDWRITING_HIRAGANA_LABEL_LIST = \
     ['あ', 'い', 'う', 'え', 'お', 'か', 'が', 'き', 'ぎ', 'く', 'ぐ', 'け', 'げ', 'こ', 'ご', 'さ',

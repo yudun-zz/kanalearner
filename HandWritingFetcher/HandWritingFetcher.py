@@ -1,7 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageDraw
 from util.util import HANDWRITING_HIRAGANA_LABEL_LIST, HANDWRITING_KATAKANA_LABEL_LIST
-from KanaRecognizer.models import katakana_model, hiragana_model
 
 
 class HandWritingFetcher(object):

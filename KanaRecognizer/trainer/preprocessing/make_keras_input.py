@@ -6,7 +6,7 @@ import pickle
 from keras.utils import np_utils
 from KanaRecognizer.trainer.preprocessing.data_utils import get_ETL_data
 from sklearn.model_selection import train_test_split
-from util.util import PROCESSED_DATA_PATH
+from util.util import PROCESSED_DATA_PATH, HIRAGANA, KATAKANA
 
 
 def get_data(writers_per_char=160, mode='all', get_scripts=False, test_size=0.2):
@@ -46,7 +46,7 @@ def get_data(writers_per_char=160, mode='all', get_scripts=False, test_size=0.2)
             labels = np.concatenate((labels, labs), axis=0)
             scripts = np.concatenate((scripts, spts), axis=0)
 
-    if mode in ('hiragana', 'all', 'kana'):
+    if mode in (HIRAGANA, 'all', 'kana'):
         max_records = 75
         chars, labs, spts = get_ETL_data(
             1, range(0, max_records), writers_per_char)
@@ -55,7 +55,7 @@ def get_data(writers_per_char=160, mode='all', get_scripts=False, test_size=0.2)
         labels = np.concatenate((labels, labs), axis=0)
         scripts = np.concatenate((scripts, spts), axis=0)
 
-    if mode in ('katakana', 'all', 'kana'):
+    if mode in (KATAKANA, 'all', 'kana'):
         katakana_num = 0
         for i in range(7, 14):
             if i < 10:
@@ -83,7 +83,7 @@ def get_data(writers_per_char=160, mode='all', get_scripts=False, test_size=0.2)
                                                             scripts,
                                                             test_size=test_size,
                                                             random_state=42)
-    elif mode in ('all', 'kanji', 'hiragana', 'katakana', 'kana'):
+    elif mode in ('all', 'kanji', HIRAGANA, KATAKANA, 'kana'):
         x_train, x_test, y_train, y_test = train_test_split(characters,
                                                             new_labels,
                                                             test_size=test_size,
