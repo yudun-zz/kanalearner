@@ -1,8 +1,7 @@
-
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import *
+from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.normalization import *
+from keras.models import Sequential
 
 
 def M6_3(weights_path=None, input_shape=(1, 64, 64), n_output=None):

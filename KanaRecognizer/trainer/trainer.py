@@ -3,9 +3,11 @@
 import argparse
 import os
 import pickle
-from util.util import PROCESSED_DATA_PATH, HIRAGANA, KATAKANA, get_model_path_from_model_name
+
 from keras.optimizers import Adam
+
 from KanaRecognizer.models import M7_2, M6_3
+from util.util import PROCESSED_DATA_PATH, HIRAGANA, KATAKANA, get_model_path_from_model_name
 
 HIRAGANA_MODEL = M7_2
 KATAKANA_MODEL = M6_3
@@ -36,7 +38,7 @@ def load_data(mode):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--mode', action='store', dest='mode', help='foo help')
+    parser.add_argument('--mode', action='store', dest='mode', help='harigana or katakana')
     parser.add_argument('-c', action="store_true", default=False)
     args = parser.parse_args()
     mode = args.mode
@@ -76,4 +78,3 @@ if __name__ == '__main__':
     print("Test size: ", X_test.shape[0])
     print("Test Score: ", score)
     print("Test Accuracy: ", acc)
-

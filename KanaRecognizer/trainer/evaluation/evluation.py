@@ -1,8 +1,9 @@
 import argparse
 from os import listdir
 from os.path import isfile, join, splitext
-from util.util import HANDWRITING_HIRAGANA_LABEL_LIST, HANDWRITING_KATAKANA_LABEL_LIST, MANUAL_HANDWRITING_DATA_PATH
+
 from KanaRecognizer.KanaRecognizer import KanaRecognizer
+from util.util import HANDWRITING_HIRAGANA_LABEL_LIST, HANDWRITING_KATAKANA_LABEL_LIST, MANUAL_HANDWRITING_DATA_PATH
 
 
 def evaluate_model(mode, kanaRecognizer):

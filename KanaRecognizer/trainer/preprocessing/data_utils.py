@@ -1,13 +1,14 @@
 """Utilities for loading raw data"""
 
 import struct
+
 import numpy as np
 from PIL import Image, ImageEnhance, ImageOps
+
 from util.util import RAW_HIRAGANA_TO_LABEL_KATAKANA_MAP, RAW_KATAKANA_TO_LABEL_KATAKANA_MAP
 
 # Specify the path to the ETL character database files
 ETL_PATH = 'KanaRecognizer/trainer/ETLC_data'
-
 
 NOISE_PIXEL_NUM_THRESHOLD = 6
 DIRECTIONS = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
@@ -84,7 +85,7 @@ def read_record(database, f):
         # Make the image smaller
         delta_w = 60
         delta_h = 60
-        padding = (delta_w//2, delta_h//2, delta_w-(delta_w//2), delta_h-(delta_h//2))
+        padding = (delta_w // 2, delta_h // 2, delta_w - (delta_w // 2), delta_h - (delta_h // 2))
         i1 = ImageOps.expand(i1, padding).resize((64, 63))
 
         img_out = r + (i1,)
@@ -203,7 +204,7 @@ def get_ETL_data(dataset, categories, writers_per_char,
                     scriptTypes.append(1)
 
             if database == 'ETL8B2':
-                print('finish loading hiragana', id_category+1, ': ', Y[-1])
+                print('finish loading hiragana', id_category + 1, ': ', Y[-1])
             elif database == 'ETL1C':
                 print('finish loading katakana', (int(dataset) - 7) * 8 + id_category + 1, ': ', Y[-1])
 
@@ -255,5 +256,5 @@ if __name__ == '__main__':
 
     print("katakana num:", katakana_num / 160)
     for i in range(0, 51):
-        idx = i*3 + 2
-        characters[idx].save("test_katakana_img/katakana_"+str(i)+"_"+labels[idx]+".png", 'PNG')
+        idx = i * 3 + 2
+        characters[idx].save("test_katakana_img/katakana_" + str(i) + "_" + labels[idx] + ".png", 'PNG')

@@ -1,11 +1,12 @@
 """Convert raw data into suitable inputs for Keras."""
 
-import numpy as np
 import pickle
 
+import numpy as np
 from keras.utils import np_utils
-from KanaRecognizer.trainer.preprocessing.data_utils import get_ETL_data
 from sklearn.model_selection import train_test_split
+
+from KanaRecognizer.trainer.preprocessing.data_utils import get_ETL_data
 from util.util import PROCESSED_DATA_PATH, HIRAGANA, KATAKANA
 
 

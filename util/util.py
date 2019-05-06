@@ -1,10 +1,10 @@
-
 HIRAGANA = 'hiragana'
 KATAKANA = 'katakana'
 
 # Specify the path to the processed files
 PROCESSED_DATA_PATH = 'KanaRecognizer/trainer/processed_data'
 MANUAL_HANDWRITING_DATA_PATH = 'hand_writing_data'
+PROBLEMS_CACHE_PATH = 'problems_cache/problems_cache.p'
 
 # Path templates of trained model
 HIRAGANA_MODEL_PATH_TEMP = 'KanaRecognizer/trainer/weights/{}-hiragana_weights.h5'
@@ -19,6 +19,28 @@ def get_model_path_from_model_name(mode, model_name):
     else:
         raise Exception('Unrecognized mode', mode)
 
+
+PRONUNCIATION_PROBLEM_SET_LIST = [
+    # voiceless sound 0-10
+    ['a', 'i', 'u', 'e', 'o'],
+    ['ka', 'ki', 'ku', 'ke', 'ko'],
+    ['sa', 'shi', 'su', 'se', 'so'],
+    ['ta', 'chi', 'tsu', 'te', 'to'],
+    ['na', 'ni', 'nu', 'ne', 'no'],
+    ['ha', 'hi', 'fu', 'he', 'ho'],
+    ['ma', 'mi', 'mu', 'me', 'mo'],
+    ['ya', 'yu', 'yo'],
+    ['ra', 'ri', 'ru', 're', 'ro'],
+    ['wa', 'wo'],
+    ['n'],
+
+    # voiced sound 11 - 15
+    ['ga', 'gi', 'gu', 'ge', 'go'],
+    ['za', 'zi', 'zu', 'ze', 'zo'],
+    ['da', 'di', 'du', 'de', 'do'],
+    ['ba', 'bi', 'bu', 'be', 'bo'],
+    ['pa', 'pi', 'pu', 'pe', 'po'],
+]
 
 HANDWRITING_HIRAGANA_LABEL_LIST = \
     ['あ', 'い', 'う', 'え', 'お', 'か', 'が', 'き', 'ぎ', 'く', 'ぐ', 'け', 'げ', 'こ', 'ご', 'さ',
@@ -42,12 +64,10 @@ KATAKANA_LIST = \
      'プ', 'ヘ', 'ベ', 'ペ', 'ホ', 'ボ', 'ポ', 'マ', 'ミ', 'ム', 'メ', 'モ', 'ヤ', 'ユ', 'ヨ', 'ラ',
      'リ', 'ル', 'レ', 'ロ', 'ワ', 'ヲ', 'ン']
 
-
 HANDWRITING_KATAKANA_LABEL_LIST = \
     ['ア', 'イ', 'ウ', 'エ', 'オ', 'カ', 'キ', 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ',
      'チ', 'ツ', 'テ', 'ト', 'ナ', 'ニ', 'ヌ', 'ネ', 'ノ', 'ハ', 'ヒ', 'フ', 'ヘ', 'ホ', 'マ', 'ミ',
      'ム', 'メ', 'モ', 'ヤ', 'ユ', 'ヨ', 'ラ', 'リ', 'ル', 'レ', 'ロ', 'ワ', 'ヲ', 'ン']
-
 
 # Some HIRAGANA need to be mapped to equivalent character to improve accuracy
 RAW_HIRAGANA_TO_LABEL_KATAKANA_MAP = {

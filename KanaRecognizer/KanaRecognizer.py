@@ -1,7 +1,9 @@
 import numpy as np
 from PIL import Image, ImageOps
-from util.util import HANDWRITING_HIRAGANA_LABEL_LIST, HANDWRITING_KATAKANA_LABEL_LIST, HIRAGANA, KATAKANA, get_model_path_from_model_name
+
 from KanaRecognizer.models import M6_3, M7_2
+from util.util import HANDWRITING_HIRAGANA_LABEL_LIST, HANDWRITING_KATAKANA_LABEL_LIST, HIRAGANA, KATAKANA, \
+    get_model_path_from_model_name
 
 
 class KanaRecognizer(object):
@@ -40,7 +42,7 @@ class KanaRecognizer(object):
         ph = ori_h - new_h
 
         inverted_img = inverted_img.crop(bbox)
-        padding = (pw//2, ph//2, pw-(pw//2), ph-(ph//2))
+        padding = (pw // 2, ph // 2, pw - (pw // 2), ph - (ph // 2))
 
         # Inverted it back to make the background to be white (non-zero)
         return ImageOps.invert(ImageOps.expand(inverted_img, padding))
@@ -57,4 +59,3 @@ class KanaRecognizer(object):
             return self._recognize_katakana(img_arr)
         else:
             raise Exception('Unrecognized mode', mode)
-
