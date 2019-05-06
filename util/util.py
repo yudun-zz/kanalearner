@@ -4,7 +4,9 @@ KATAKANA = 'katakana'
 
 # Specify the path to the processed files
 PROCESSED_DATA_PATH = 'KanaRecognizer/trainer/processed_data'
-MANUAL_HANDWRITING_DATA_PATH = 'KanaRecognizer/hand_writing_data'
+MANUAL_HANDWRITING_DATA_PATH = 'hand_writing_data'
+
+# Path templates of trained model
 HIRAGANA_MODEL_PATH_TEMP = 'KanaRecognizer/trainer/weights/{}-hiragana_weights.h5'
 KATAKANA_MODEL_PATH_TEMP = 'KanaRecognizer/trainer/weights/{}-katakana_weights.h5'
 

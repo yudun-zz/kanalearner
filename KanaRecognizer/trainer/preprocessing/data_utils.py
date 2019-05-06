@@ -40,18 +40,8 @@ def is_noisy(arr, i, j):
 
 # remove noise (dfs points size < threshold) from 64*64 arr
 def denoise(arr):
-    visited = np.zeros((64, 64))
-    for i in range(0, 64):
-        for j in range(0, 64):
-            if arr[i][j] == 0 and visited[i][j] == 0:
-                candidates = []
-                q = [(i, j)]
-                visited[i, j] = 1
-                bfs(arr, q, candidates, visited)
-                if len(candidates) <= NOISE_PIXEL_NUM_THRESHOLD:
-                    for candidate in candidates:
-                        arr[candidate[0]][candidate[1]] = 1
-
+    # Step 1: Remove all pixels that doesn't have black pixel next to its
+    # up, left, bottom or right
     new_arr = np.ones((64, 64))
     for i in range(0, 64):
         for j in range(0, 64):
@@ -59,6 +49,19 @@ def denoise(arr):
                 new_arr[i][j] = 1
             else:
                 new_arr[i][j] = arr[i][j]
+
+    # Step 2: Remove all connected pixels whose area <= NOISE_PIXEL_NUM_THRESHOLD
+    visited = np.zeros((64, 64))
+    for i in range(0, 64):
+        for j in range(0, 64):
+            if new_arr[i][j] == 0 and visited[i][j] == 0:
+                candidates = []
+                q = [(i, j)]
+                visited[i, j] = 1
+                bfs(new_arr, q, candidates, visited)
+                if len(candidates) <= NOISE_PIXEL_NUM_THRESHOLD:
+                    for candidate in candidates:
+                        new_arr[candidate[0]][candidate[1]] = 1
 
     return new_arr
 
@@ -133,15 +136,9 @@ def get_ETL_data(dataset, categories, writers_per_char,
         exit(1)
 
     filename = name_base + str(dataset)
-
     X = []
     Y = []
     scriptTypes = []
-
-    try:
-        iter(categories)
-    except:
-        categories = [categories]
 
     for id_category in categories:
         with open(filename, 'rb') as f:

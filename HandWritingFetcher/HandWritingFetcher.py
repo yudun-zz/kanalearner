@@ -82,7 +82,7 @@ if __name__ == '__main__':
                                                 'hand_writing_data/' + hiragana + '.png', stroke=6, resize=(64, 64))
         handWritingFetcher.fetch()
 
-    for katakana in HANDWRITING_KATAKANA_LABEL_LIST[5:]:
+    for katakana in HANDWRITING_KATAKANA_LABEL_LIST[:5]:
         handWritingFetcher = HandWritingFetcher(200, 200,
                                                 'hand_writing_data/' + katakana + '.png', stroke=10, resize=(64, 64))
         handWritingFetcher.fetch()
