@@ -23,5 +23,8 @@ class Problem(object):
         self.correct_answer = correct_answer
         self.problem_type = problem_type
 
+    def __str__(self):
+        return self.PROMPT_TEMPLATE_MAP[self.problem_type].format(self.question)
+
     def run(self):
         pass
