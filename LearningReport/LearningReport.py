@@ -29,7 +29,7 @@ class LearningReport(object):
                   '{} problems get wrong answers.\n'.format(wrong_num) + \
                   'Acc for all problems: {0:.2f}\n'.format(acc) + \
                   '\nAll wrong questions:\n' + ''.join(['%s\n' % (problem_report.to_probelm_str()
-                    ) for problem_report in self.problem_report_list if problem_report.is_successful]) + \
+                    ) for problem_report in self.problem_report_list if not problem_report.is_successful]) + \
                   '\nTop 10 slowest questions:\n' + ''.join(['%.2fs\t%s\n' % (
                         problem_report.time_elapsed_in_sec, problem_report.to_probelm_str()
                     ) for problem_report in sorted_problem_reports[:10]])
